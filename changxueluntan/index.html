@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>长靴论坛-时尚靴子爱好者交流社区与穿搭资讯</title>
+    <meta name="description" content="长靴论坛是靴子爱好者的在线交流平台，提供长靴穿搭指南、新品资讯、品牌评测、保养技巧与热门话题讨论，欢迎加入时尚靴友圈。">
+    <meta name="keywords" content="长靴论坛,长靴,靴子,过膝靴,穿搭,时尚靴子,靴子保养,靴子搭配">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+            background: #f4ede4;
+            color: #2b2b2b;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .site-header {
+            background: #1f1a16;
+            color: #f2e8d9;
+            padding: 18px 0;
+            border-bottom: 3px solid #b08a5a;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: #d4a373;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 28px;
+            font-size: 15px;
+        }
+
+        .nav-list a {
+            padding: 6px 0;
+            display: inline-block;
+            transition: color 0.2s;
+        }
+
+        .nav-list a:hover {
+            color: #d4a373;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 15px;
+            font-size: 14px;
+        }
+
+        .user-actions .login {
+            border: 1px solid #b08a5a;
+            padding: 6px 16px;
+            border-radius: 20px;
+            transition: all 0.2s;
+        }
+
+        .user-actions .login:hover {
+            background: #b08a5a;
+            color: #1f1a16;
+        }
+
+        .user-actions .register {
+            background: #b08a5a;
+            color: #1f1a16;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        /* Hero 首屏 */
+        .hero {
+            background: linear-gradient(135deg, #2c241d 0%, #4a382b 50%, #6b4f38 100%);
+            padding: 60px 0;
+            color: #f8f0e5;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 44px;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .hero .sub-title {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 36px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 500;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #d4a373;
+            color: #1f1a16;
+            border-color: #d4a373;
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: #d4a373;
+        }
+
+        .btn-outline {
+            border-color: #d4a373;
+            color: #d4a373;
+        }
+
+        .btn-outline:hover {
+            background: #d4a373;
+            color: #1f1a16;
+        }
+
+        /* 最新讨论 */
+        .section {
+            padding: 50px 0;
+        }
+
+        .section-title {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 18px;
+            color: #2b211a;
+        }
+
+        .section-title::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 4px;
+            width: 5px;
+            height: 26px;
+            background: #b08a5a;
+            border-radius: 3px;
+        }
+
+        .section-sub {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .post-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 22px;
+        }
+
+        .post-card {
+            background: #fffdf9;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid #e8ddcf;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+
+        .post-category {
+            font-size: 12px;
+            background: #efe4d6;
+            color: #6b4f38;
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            align-self: flex-start;
+        }
+
+        .post-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .post-card p {
+            font-size: 14px;
+            color: #5f5b56;
+            flex: 1;
+        }
+
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 18px;
+            font-size: 13px;
+            color: #999;
+            border-top: 1px dashed #ddd2c4;
+            padding-top: 12px;
+        }
+
+        /* 热门版块 */
+        .forum-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .forum-item {
+            background: #fffdf9;
+            border-radius: 12px;
+            padding: 30px 25px;
+            text-align: center;
+            border: 1px solid #e8ddcf;
+            transition: border-color 0.2s;
+        }
+
+        .forum-item:hover {
+            border-color: #b08a5a;
+        }
+
+        .forum-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .forum-item h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #2b211a;
+        }
+
+        .forum-item p {
+            font-size: 14px;
+            color: #777;
+        }
+
+        .forum-link {
+            color: #b08a5a;
+            font-weight: 600;
+            margin-top: 15px;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        /* 穿搭指南 */
+        .guide-section {
+            background: #efe4d6;
+        }
+
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .guide-card {
+            background: #fffdf9;
+            border-radius: 12px;
+            padding: 25px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .guide-num {
+            background: #b08a5a;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .guide-content h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #2b211a;
+        }
+
+        .guide-content p {
+            font-size: 14px;
+            color: #5f5b56;
+        }
+
+        /* 热门话题 */
+        .topic-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .topic-tag {
+            background: #fffdf9;
+            border: 1px solid #d8c9b8;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .topic-tag:hover {
+            background: #b08a5a;
+            color: #fff;
+            border-color: #b08a5a;
+        }
+
+        .topic-tag .count {
+            color: #b08a5a;
+            font-weight: 600;
+            margin-left: 4px;
+        }
+
+        /* 保养知识 */
+        .knowledge-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .knowledge-item {
+            background: #fffdf9;
+            border-radius: 10px;
+            padding: 22px;
+            border-left: 4px solid #b08a5a;
+        }
+
+        .knowledge-item h4 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #2b211a;
+        }
+
+        .knowledge-item p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* 常见问题 FAQ */
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: #fffdf9;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            border: 1px solid #e8ddcf;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 18px 24px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        .faq-question::after {
+            content: "+";
+            font-size: 24px;
+            color: #b08a5a;
+        }
+
+        .faq-answer {
+            padding: 0 24px 18px;
+            font-size: 14px;
+            color: #666;
+            line-height: 1.8;
+            display: block;
+        }
+
+        /* CTA */
+        .cta-banner {
+            background: linear-gradient(120deg, #4a382b, #2c241d);
+            padding: 50px 0;
+            text-align: center;
+            color: #f2e8d9;
+        }
+
+        .cta-banner h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .cta-banner p {
+            font-size: 16px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: #1a1512;
+            color: #bdb3a6;
+            padding: 40px 0 20px;
+            font-size: 14px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-about h4 {
+            color: #f2e8d9;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .footer-about p {
+            line-height: 1.8;
+            font-size: 13px;
+            max-width: 350px;
+        }
+
+        .footer-links h4 {
+            color: #f2e8d9;
+            font-size: 16px;
+            margin-bottom: 12px;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a:hover {
+            color: #d4a373;
+        }
+
+        .copyright {
+            border-top: 1px solid #3a2e26;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #8a7f72;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .forum-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .knowledge-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .guide-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-inner {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .nav-list {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            .hero h1 {
+                font-size: 32px;
+            }
+            .post-list {
+                grid-template-columns: 1fr;
+            }
+            .forum-grid {
+                grid-template-columns: 1fr;
+            }
+            .knowledge-grid {
+                grid-template-columns: 1fr;
+            }
+            .section {
+                padding: 35px 0;
+            }
+            .btn {
+                padding: 10px 25px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 40px 0;
+            }
+            .hero h1 {
+                font-size: 26px;
+            }
+            .guide-card {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <div class="logo">长靴<span>论坛</span></div>
+            <nav>
+                <ul class="nav-list">
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#">靴子讨论</a></li>
+                    <li><a href="#">穿搭分享</a></li>
+                    <li><a href="#">品牌评测</a></li>
+                    <li><a href="#">保养问答</a></li>
+                    <li><a href="#">靴友圈</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <a href="#" class="login">登录</a>
+                <a href="#" class="register">注册</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section class="hero">
+            <div class="container">
+                <h1>长靴论坛 · 靴友同好聚集地</h1>
+                <p class="sub-title">无论你是长靴收藏家、穿搭爱好者，还是刚入门的靴子新人，这里都有你需要的讨论与灵感。发现最新靴款、分享搭配心得、交流保养经验。</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary">立即加入论坛</a>
+                    <a href="#" class="btn btn-outline">浏览热门帖</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 热门讨论区 -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">今日热门讨论</h2>
+                <p class="section-sub">靴友们最近在聊什么？</p>
+                <div class="post-list">
+                    <article class="post-card">
+                        <span class="post-category">穿搭求助</span>
+                        <h3>过膝长靴搭配大衣，小个子女生怎么穿才显高？</h3>
+                        <p>最近入手了一双黑色过膝靴，但总感觉搭配大衣时比例不对，有没有同身材的姐妹分享一下搭配技巧？</p>
+                        <div class="post-meta">
+                            <span>🔥 38 回复</span>
+                            <span>2小时前</span>
+                        </div>
+                    </article>
+                    <article class="post-card">
+                        <span class="post-category">新品速递</span>
+                        <h3>2025秋冬新款长靴盘点：这些品牌值得关注</h3>
+                        <p>整理了今年秋冬各大品牌推出的新款长靴，从经典款到设计款都有，附上参考价格和购买渠道分析。</p>
+                        <div class="post-meta">
+                            <span>📖 12 回复</span>
+                            <span>5小时前</span>
+                        </div>
+                    </article>
+                    <article class="post-card">
+                        <span class="post-category">保养讨论</span>
+                        <h3>麂皮长靴日常怎么打理？资深靴友分享实用工具</h3>
+                        <p>刚买一双麂皮长靴，但听说很难保养。求推荐靠谱的清洁刷、防水喷雾和保养流程。</p>
+                        <div class="post-meta">
+                            <span>🔧 25 回复</span>
+                            <span>昨天</span>
+                        </div>
+                    </article>
+                    <article class="post-card">
+                        <span class="post-category">晒靴分享</span>
+                        <h3>入坑五年，晒晒我收藏的二十双长靴全家福</h3>
+                        <p>从入门到热爱，五年时间陆续收集了不同长度、材质和颜色的长靴，每一双都有故事，欢迎交流。</p>
+                        <div class="post-meta">
+                            <span>📸 46 回复</span>
+                            <span>昨天</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- 论坛版块 -->
+        <section class="section" style="background:#f8f1e8;">
+            <div class="container">
+                <h2 class="section-title">论坛精选版块</h2>
+                <p class="section-sub">选择你感兴趣的板块，加入话题讨论</p>
+                <div class="forum-grid">
+                    <div class="forum-item">
+                        <div class="forum-icon">👢</div>
+                        <h3>长靴穿搭交流</h3>
+                        <p>分享你的长靴搭配方案，获取穿搭灵感与建议</p>
+                        <a href="#" class="forum-link">进入板块 →</a>
+                    </div>
+                    <div class="forum-item">
+                        <div class="forum-icon">🛍️</div>
+                        <h3>品牌购买评测</h3>
+                        <p>真实买家分享各品牌长靴的尺码、舒适度与质量</p>
+                        <a href="#" class="forum-link">进入板块 →</a>
+                    </div>
+                    <div class="forum-item">
+                        <div class="forum-icon">🧴</div>
+                        <h3>清洗与保养</h3>
+                        <p>皮靴、麂皮靴、漆皮靴的护理方法与工具推荐</p>
+                        <a href="#" class="forum-link">进入板块 →</a>
+                    </div>
+                    <div class="forum-item">
+                        <div class="forum-icon">📦</div>
+                        <h3>二手闲置交易</h3>
+                        <p>靴友之间互相转让闲置长靴，安全交易指南</p>
+                        <a href="#" class="forum-link">进入板块 →</a>
+                    </div>
+                    <div class="forum-item">
+                        <div class="forum-icon">💬</div>
+                        <h3>新人报到区</h3>
+                        <p>新加入的靴友在此自我介绍，快速融入社区</p>
+                        <a href="#" class="forum-link">进入板块 →</a>
+                    </div>
+                    <div class="forum-item">
+                        <div class="forum-icon">📰</div>
+                        <h3>潮流资讯</h3>
+                        <p>最新长靴时尚趋势、秀场信息与明星穿搭动态</p>
+                        <a href="#" class="forum-link">进入板块 →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 穿搭指南 -->
+        <section class="section guide-section">
+            <div class="container">
+                <h2 class="section-title">新手穿搭指南</h2>
+                <p class="section-sub">从零开始，轻松驾驭长靴</p>
+                <div class="guide-grid">
+                    <div class="guide-card">
+                        <div class="guide-num">1</div>
+                        <div class="guide-content">
+                            <h3>了解靴型与长度</h3>
+                            <p>及膝靴、过膝靴、踝靴各有特点。过膝靴拉长腿部线条，及膝靴更显干练。初次购买建议从经典黑色及膝靴开始，百搭且不易出错。</p>
+                        </div>
+                    </div>
+                    <div class="guide-card">
+                        <div class="guide-num">2</div>
+                        <div class="guide-content">
+                            <h3>根据腿型选择</h3>
+                            <p>小腿较细可选择贴合度高的弹力靴；小腿较粗建议选择靴筒略宽松的款式，避免勒出痕迹。试穿时注意蹲下测试舒适度。</p>
+                        </div>
+                    </div>
+                    <div class="guide-card">
+                        <div class="guide-num">3</div>
+                        <div class="guide-content">
+                            <h3>搭配比例技巧</h3>
+                            <p>长靴搭配短裙或短裤，能最大程度展现腿部线条。搭配长款大衣时，建议选择修身款大衣，避免整体臃肿。</p>
+                        </div>
+                    </div>
+                    <div class="guide-card">
+                        <div class="guide-num">4</div>
+                        <div class="guide-content">
+                            <h3>颜色选购建议</h3>
+                            <p>黑色最百搭；棕色、酒红色适合秋冬增添层次感；白色或浅色系更适合春夏。日常通勤建议优先选择中性色系。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 热门话题标签 -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">热议话题</h2>
+                <p class="section-sub">本周靴友圈热门标签</p>
+                <div class="topic-tags">
+                    <a href="#" class="topic-tag">#过膝靴搭配 <span class="count">268</span></a>
+                    <a href="#" class="topic-tag">#平底长靴 <span class="count">184</span></a>
+                    <a href="#" class="topic-tag">#粗跟长靴 <span class="count">143</span></a>
+                    <a href="#" class="topic-tag">#秋冬靴子 <span class="count">321</span></a>
+                    <a href="#" class="topic-tag">#小个子穿靴 <span class="count">97</span></a>
+                    <a href="#" class="topic-tag">#靴子保养 <span class="count">156</span></a>
+                    <a href="#" class="topic-tag">#真皮长靴 <span class="count">102</span></a>
+                    <a href="#" class="topic-tag">#学生党靴子 <span class="count">78</span></a>
+                    <a href="#" class="topic-tag">#骑士靴 <span class="count">210</span></a>
+                    <a href="#" class="topic-tag">#弹力靴 <span class="count">65</span></a>
+                    <a href="#" class="topic-tag">#靴子开箱 <span class="count">89</span></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 保养知识 -->
+        <section class="section" style="background:#f8f1e8;">
+            <div class="container">
+                <h2 class="section-title">长靴保养小课堂</h2>
+                <p class="section-sub">让你的爱靴陪伴更久</p>
+                <div class="knowledge-grid">
+                    <div class="knowledge-item">
+                        <h4>皮靴清洁</h4>
+                        <p>使用柔软的湿布擦拭表面灰尘，定期涂抹无色鞋油保持皮革光泽。避免暴晒和潮湿环境。</p>
+                    </div>
+                    <div class="knowledge-item">
+                        <h4>麂皮护理</h4>
+                        <p>麂皮长靴需要使用专用刷具顺毛梳理，防水喷雾必不可少。弄脏后不要用水擦洗，应用橡皮擦或专用清洁剂。</p>
+                    </div>
+                    <div class="knowledge-item">
+                        <h4>存放方法</h4>
+                        <p>长靴存放时建议放入鞋撑或用报纸填充，保持靴筒挺括。使用透气的防尘袋收纳，避免挤压变形。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title" style="text-align:center; padding-left:0;">常见问题解答</h2>
+                <p class="section-sub" style="text-align:center;">关于长靴的疑问，这里都有答案</p>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <div class="faq-question">长靴尺码怎么选？需要买大一码吗？</div>
+                        <div class="faq-answer">大部分品牌按标准运动鞋尺码选购即可。如果靴筒较紧或打算穿厚袜子，可以适当选大半码。建议下午试鞋，此时脚部略有浮肿，试穿更准确。不同品牌版型有差异，参考其他买家的评价会很有帮助。</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">过膝靴会不会容易掉筒？</div>
+                        <div class="faq-answer">掉筒问题主要取决于靴筒设计。选择靴筒有弹力带或系带设计的款式，能更好固定。另外，靴筒贴合度高的弹力靴通常不易滑落。如果担心掉筒，可以搭配防滑带或靴夹来解决。</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">学生党预算有限，有什么高性价比长靴推荐？</div>
+                        <div class="faq-answer">建议关注快时尚品牌的基础款，或者在一些电商平台搜索销量高的中小品牌。PU材质的长靴价格亲民且容易打理，但透气性稍差。也可以留意论坛二手交易板块，经常有九成新的闲置转让。</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">长靴可以搭配裤子穿吗？</div>
+                        <div class="faq-answer">当然可以。紧身牛仔裤或打底裤塞进靴筒是经典搭配。直筒裤或阔腿裤搭配短靴或切尔西靴也很时尚。近年来流行的“靴裤叠穿”穿法值得尝试，将裤脚稍微卷起露出靴筒。</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">夏天穿长靴热吗？怎么搭配？</div>
+                        <div class="faq-answer">夏季可以选择薄款弹力靴或镂空设计的凉靴。搭配短裤、短裙或连衣裙，营造上轻下重的视觉效果。室内空调环境下长靴也不会太热，很多时尚达人在夏季也穿长靴出席活动。</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-banner">
+            <div class="container">
+                <h2>找到你的同好，分享你的靴子故事</h2>
+                <p>长靴论坛已有数万靴友加入，等你来一起交流！</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary">免费注册</a>
+                    <a href="#" class="btn btn-outline">浏览更多内容</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h4>关于长靴论坛</h4>
+                    <p>长靴论坛是国内专注于长靴及各类靴子主题的在线交流社区。我们致力于打造一个友好、专业、多元的靴友分享平台，让每一位热爱靴子的朋友都能在这里找到归属感。</p>
+                </div>
+                <div class="footer-links">
+                    <h4>快速链接</h4>
+                    <ul>
+                        <li><a href="#">论坛规则</a></li>
+                        <li><a href="#">帮助中心</a></li>
+                        <li><a href="#">版主招募</a></li>
+                        <li><a href="#">友情链接</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>联系与合作</h4>
+                    <ul>
+                        <li><a href="#">联系我们</a></li>
+                        <li><a href="#">品牌合作</a></li>
+                        <li><a href="#">隐私政策</a></li>
+                        <li><a href="#">免责声明</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 长靴论坛 Changxue BBS. All Rights Reserved. 本站为靴子爱好者交流社区。</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+
+    <script>
+        // FAQ 手风琴交互
+        document.querySelectorAll('.faq-question').forEach(function(q) {
+            q.addEventListener('click', function() {
+                var answer = this.nextElementSibling;
+                var isVisible = answer.style.display === 'none';
+                answer.style.display = isVisible ? 'block' : 'none';
+                // 简单切换符号
+                var icon = this.querySelector('::after');
+            });
+        });
+
+        // 默认隐藏FAQ答案
+        document.querySelectorAll('.faq-answer').forEach(function(a) {
+            a.style.display = 'none';
+        });
+    </script>
+</body>
+                              </html>
